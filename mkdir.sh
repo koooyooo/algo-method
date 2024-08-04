@@ -97,10 +97,3 @@ mkdir -p 4.数理素養/6.データサイエンス中級/1.統計学基礎
 mkdir -p 4.数理素養/6.データサイエンス中級/2.統計分析手法
 mkdir -p 4.数理素養/6.データサイエンス中級/3.課題解決のアプローチ
 mkdir -p 4.数理素養/6.データサイエンス中級/4.機械学習基礎
-
-for dir in `find . -type d`; do
-    if [[ $dir == ./.git* ]]; then
-        continue
-    fi
-    touch "$dir/.gitkeep"
-done
