@@ -1,55 +1,29 @@
-from collections import deque
+import sys
 
-H, W = [int(i) for i in input().split()]
-X0, Y0, X1, Y1 = [int(i) for i in input().split()]
+sys.setrecursionlimit(10 ** 9)
 
-# create lines
-lines = []
-for h in range(H):
-    line = input()
-    lines.append(line)
+N, X = [int(i) for i in input().split()]
+As = [int(i) for i in input().split()]
 
-# global vars
-G = {}
-seen = {}
-distance = {}
+G = [[] for _ in range(N)]
+seen = [False] * N
+depth = [-1] * N
 
-# create graph
-for h in range(H):
-    for w in range(W):
-        if lines[h][w] != "W":
-            continue
-        current = (h,w)
-        # init global vars 
-        G[current] = []
-        distance[current] = -1
-        seen[current] = False
-        # set up graph content
-        if h != 0 and lines[h-1][w] == "W":
-            up = (h-1,w)
-            G[current].append(up)
-            G[up].append(current)
-        if w != 0 and lines[h][w-1] == "W":
-            left = (h,w-1)
-            G[current].append(left)
-            G[left].append(current)
+for i, a in enumerate(As):
+    G[a].append(i + 1)
+
+depth[0] = 0
 
 
-start = (X0,Y0)
-seen[start] = True
-distance[start] = 0
-
-q = deque()
-q.append(start)
-
-while q:
-    n = q.popleft()
+def dfs(n: int):
+    seen[n] = True
     for ch in G[n]:
         if seen[ch]:
             continue
-        seen[ch] = True
-        distance[ch] = distance[n] + 1
-        q.append(ch)
+        depth[ch] = depth[n] + 1
+        dfs(ch)
 
-end = (X1,Y1)
-print(distance[end])
+
+dfs(0)
+
+print(depth[X])
