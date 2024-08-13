@@ -19,7 +19,7 @@ distance[0] = 0
 
 def dfs(n: int):
     for edge in G[n]:
-        dist_candidate = distance[n] + edge.length
+        dist_candidate = distance[n] + edge.distance
         if distance[edge.to] <= dist_candidate:
             continue
         distance[edge.to] = dist_candidate 
